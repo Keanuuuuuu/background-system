@@ -15,7 +15,7 @@ service.interceptors.request.use(
   config => {
     // do something before request is sent
 
-    const token = localStorage.getItem('adminToken')
+    const token = localStorage.getItem('adminToken');
     if(token){
       config.headers['Authorization'] = "Bearer " + token
     }

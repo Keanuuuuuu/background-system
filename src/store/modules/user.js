@@ -42,6 +42,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       // { username: username.trim(), password: password }
       loginApi(userInfo).then(response => {
+        console.log(response);
         const { data } = response
         if(data){
           commit('SET_USER', data)

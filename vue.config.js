@@ -38,11 +38,11 @@ module.exports = {
     },
     proxy:{
       '/res' : {
-        target : 'http://127.0.0.1:7001'
+        target : 'http://127.0.0.1:7002'
         // http://127.0.0.1:7001/res/captcha
       },
       '/api': {
-        target : 'http://127.0.0.1:7001'
+        target : 'http://127.0.0.1:7002'
         // http://127.0.0.1:7001/api/admin/login
       }
     }

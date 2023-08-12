@@ -180,7 +180,7 @@ export default {
               this.$message.error('验证码错误')
               // this.$message是elementui的消息弹窗
             }else{
-              this.$message.error('账号错误')
+              this.$message.error('账号密码错误')
             }
           })
         } else {

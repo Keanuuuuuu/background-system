@@ -27,7 +27,7 @@
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center">
-        <template>
+        <template slot-scope="scope">
           <el-tooltip
             class="item"
             effect="dark"
@@ -35,29 +35,77 @@
             placement="top"
             :hide-after="2000"
           >
-          <!-- tooltip就像hover效果的一个组件 -->
             <el-button
               type="primary"
               icon="el-icon-edit"
               circle
               size="mini"
+              @click="editBannerHandle(scope.row)"
             ></el-button>
           </el-tooltip>
         </template>
       </el-table-column>
     </el-table>
+
+        <!-- 编辑首页标语 -->
+        <el-dialog title="请编辑信息" :visible.sync="dialogFormVisible" top="5vh">
+      <el-form :model="form">
+        <!-- 标题 -->
+        <el-form-item label="标题">
+          <el-input v-model="form.title"></el-input>
+        </el-form-item>
+
+        <!-- 描述 -->
+        <el-form-item label="描述">
+          <el-input v-model="form.description"></el-input>
+        </el-form-item>
+
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="首页中图">
+              <!-- 中图 -->
+              <Upload v-model="form.midImg" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="首页中图">
+              <!-- 大图 -->
+              <Upload v-model="form.bigImg" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="editBannerConfirm"
+          >确 定</el-button
+        >
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 
 <script>
-import { getBanner } from "@/api/banner.js";
+import { getBanner, setBanner } from "@/api/banner.js";
 import { server_URL } from '@/urlConfig.js';
+import Upload from "@/components/Upload";
 export default {
   data() {
     return {
       data: [], // 存储数据
+      dialogFormVisible: false, // 编辑对话框是否显示
+      form: {
+        id: "",
+        midImg: "",
+        bigImg: "",
+        title: "",
+        description: "",
+      },
     };
+  },
+  components: {
+    Upload,
   },
   created() {
     this.fetchData();
@@ -66,13 +114,36 @@ export default {
     fetchData() {
       getBanner().then((res) => {
         this.data = res.data;
-        console.log(res);
         for(let item of this.data){
             item.midImg2 = server_URL + item.midImg;
             item.bigImg2 = server_URL + item.bigImg;
         }
       });
     },
+    editBannerHandle(bannerInfo) {
+      // 1. 将 bannerInfo 的数据给 form 2. 打开 dialog
+      this.form = { ...bannerInfo };
+
+      this.dialogFormVisible = true;
+    },
+    editBannerConfirm(){
+      // 从表单里面拿到用户修改的数据，发送给服务器
+      // 因为 api 文档要求三个首页标语都要发送过去，哪怕只改了其中一个
+      let arr = [...this.data];
+      for(var i=0;i<arr.length;i++){
+        if(arr[i].id == this.form.id){
+          arr[i] = this.form
+        }
+      }
+      setBanner(arr).then(res=>{
+        this.dialogFormVisible = false; // 关闭掉对话框
+        this.$message({
+          message: '修改成功',
+          type: 'success'
+        });
+        this.fetchData();
+      })
+    }
   },
 };
 </script>
