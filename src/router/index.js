@@ -79,19 +79,26 @@ export const constantRoutes = [
         path: '/blogList',
         name: 'BlogList',
         component: () => import('@/views/blogList/index'),
-        meta: { title: '文章列表', icon: 'table', auth: true }
+        meta: { title: '文章列表', icon: 'el-icon-s-order', auth: true }
       },
       {
         path: '/blogType',
         name: 'BlogType',
         component: () => import('@/views/blogType/index'),
-        meta: { title: '文章分类', icon: 'tree', auth: true }
+        meta: { title: '文章分类', icon: 'el-icon-menu', auth: true }
       },
       {
         path: '/addBlog',
         name: 'AddBlog',
         component: () => import('@/views/addBlog/index'),
-        meta: { title: '添加文章', icon: 'tree', auth: true }
+        meta: { title: '添加文章', icon: 'el-icon-circle-plus', auth: true }
+      },
+      {
+        path: '/editBlog/:id',
+        name: 'EditBlog',
+        hidden: true,
+        component: () => import('@/views/editBlog/index'),
+        meta: { title: '编辑文章', icon: 'el-icon-circle-plus', auth: true }
       }
     ]
   },

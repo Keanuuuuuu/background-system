@@ -51,7 +51,7 @@
   <script>
   import "@toast-ui/editor/dist/toastui-editor.css";
   import { Editor } from "@toast-ui/vue-editor";
-  import Upload from "@/components/Upload.vue";
+  import Upload from "@/components/Upload";
   import { getBlogType } from "@/api/blogType.js";
   import { addBlog } from '@/api/blog.js'
   export default {
@@ -69,7 +69,7 @@
       };
     },
     created() {
-      // 一进来的时候，就需要拿取分类的数据
+      // 一进来的时候，就需要拿取分类的数据，因为分类的数据是动态的
       getBlogType().then(({ data }) => {
         this.blogType = data;
       });

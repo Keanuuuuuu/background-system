@@ -65,7 +65,7 @@
                 icon="el-icon-edit"
                 circle
                 size="mini"
-                @click="editBannerHandle(scope.row)"
+                @click="editBlogHandle(scope.row)"
               ></el-button>
             </el-tooltip>
   
@@ -173,6 +173,10 @@
               message: "已取消删除",
             });
           });
+      },    
+      // 编辑文章
+      editBlogHandle(blogInfo){
+        this.$router.push(`/editBlog/${blogInfo.id}`)
       },
       // 分页相关事件
       sizeChangeHandle(pagerNum) {
