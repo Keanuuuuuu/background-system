@@ -188,10 +188,6 @@ export default {
           return false
         }
       })
-    },
-    // 获取验证码：
-    getCaptcha(){
-
     }
   }
 }
