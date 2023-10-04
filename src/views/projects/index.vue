@@ -192,7 +192,8 @@ export default {
         this.data = data;
         console.log(data);
         for (let i of this.data) {
-          i.thumb2 = server_URL + i.thumb;
+          // i.thumb2 = server_URL + i.thumb;
+          i.thumb2 = i.thumb;
           this.srcList.push(i.thumb2);
         }
       });

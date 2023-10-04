@@ -130,7 +130,8 @@
           this.data = data.rows;
           for (var i of this.data) {
             i.createDate = formatDate(i.createDate);
-            i.thumb = server_URL + i.thumb;
+            // i.thumb = server_URL + i.thumb;
+            i.thumb = i.thumb;
             this.srcList.push(i.thumb);
           }
           this.count = data.total;

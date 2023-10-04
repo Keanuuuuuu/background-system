@@ -24,7 +24,8 @@ export default {
   computed : {
     imageUrl(){
       if(this.value){
-        return server_URL + this.value;
+        // return server_URL + this.value;
+        return this.value;
       }
     },
     headers(){
